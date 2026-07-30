@@ -12,7 +12,7 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   const [invitationData, setInvitationData] = useState<InvitationData>(() => {
-    const saved = localStorage.getItem('pearl_ivory_invitation_data');
+    const saved = localStorage.getItem('eslam_halla_invitation_data');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -37,7 +37,7 @@ export default function App() {
 
   // Save invitation data to localStorage
   useEffect(() => {
-    localStorage.setItem('pearl_ivory_invitation_data', JSON.stringify(invitationData));
+    localStorage.setItem('eslam_halla_invitation_data', JSON.stringify(invitationData));
   }, [invitationData]);
 
   // Control audio playback based on musicEnabled state
