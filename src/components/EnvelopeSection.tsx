@@ -117,19 +117,19 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                 initial={{ y: 80, rotate: 6, opacity: 0 }}
                 animate={{ y: 0, rotate: 3, opacity: 1 }}
                 transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-1/2 max-w-[240px] sm:max-w-[280px] z-10"
+                className="relative w-1/2 max-w-[220px] sm:max-w-[250px] z-10"
               >
                 <div className="bg-[#FAF6EE] border border-[#E3D6C3] p-3 sm:p-4 rounded-xl card-lace-shadow flex flex-col items-center space-y-2">
-                  <h2 className="font-script text-3xl sm:text-4xl text-[#3D352E] pt-1">
+                  <h2 className="font-script text-2xl sm:text-3xl text-[#3D352E] pt-1">
                     Save the Date
                   </h2>
 
-                  <div className="relative w-full rounded-sm border border-[#E2D6C4] shadow-xs overflow-hidden flex items-center justify-center bg-transparent">
+                  <div className="relative w-full max-h-[280px] sm:max-h-[320px] rounded-sm border border-[#E2D6C4] shadow-xs overflow-hidden flex items-center justify-center bg-[#F6EDDF]">
                     <img
                       src={`${import.meta.env.BASE_URL}img2.jpg`}
                       alt="Bride Walk"
                       referrerPolicy="no-referrer"
-                      className="w-full h-auto block rounded-2xs transition-transform duration-700 hover:scale-105"
+                      className="w-full h-full max-h-[280px] sm:max-h-[320px] object-contain rounded-2xs transition-transform duration-700 hover:scale-105"
                     />
                   </div>
                 </div>
