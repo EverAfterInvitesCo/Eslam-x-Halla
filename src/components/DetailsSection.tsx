@@ -10,7 +10,7 @@ export const DetailsSection: React.FC<DetailsSectionProps> = ({ data }) => {
   return (
     <section className="relative w-full max-w-5xl mx-auto px-4 py-16 flex flex-col items-center text-center select-none space-y-12">
       
-      {/* Single Clean Quran Verse Section */}
+      {/* Single Quran Verse Section */}
       <div className="w-full flex flex-col items-center space-y-6">
         <p className="font-arabic text-xl sm:text-2xl md:text-3xl text-[#3D352E] leading-loose tracking-wide max-w-3xl px-4">
           وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ
@@ -54,7 +54,7 @@ export const DetailsSection: React.FC<DetailsSectionProps> = ({ data }) => {
           </div>
 
           <div className="space-y-4 pt-4 border-t border-[#E8DFC2]/60">
-            {/* Address Row with Mountain Rose / One View */}
+            {/* Address Row */}
             <div className="flex items-start space-x-3">
               <span className="text-[#8C7A66] text-lg mt-0.5">📍</span>
               <div>
