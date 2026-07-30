@@ -8,6 +8,7 @@ import { QuranVerseSection } from './components/QuranVerseSection';
 import { DetailsSection } from './components/DetailsSection';
 import { PersonalizeModal } from './components/PersonalizeModal';
 import { VideoIntroScreen } from './components/VideoIntroScreen';
+import { Footer } from './components/Footer';
 
 export default function App() {
   const [invitationData, setInvitationData] = useState<InvitationData>(() => {
@@ -61,7 +62,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] text-[#2C2A29] font-sans antialiased relative overflow-x-hidden pt-12 pb-20 selection:bg-[#E2D4C3]">
+    <div className="min-h-screen bg-[#FDFBF7] text-[#2C2A29] font-sans antialiased relative overflow-x-hidden pt-12 pb-0 selection:bg-[#E2D4C3]">
       {/* Global Background Audio Element */}
       <audio
         ref={audioRef}
@@ -108,6 +109,9 @@ export default function App() {
           data={invitationData}
         />
       </main>
+
+      {/* Silk Background Footer */}
+      <Footer />
 
       {/* Personalization / Customizer Modal */}
       <PersonalizeModal
