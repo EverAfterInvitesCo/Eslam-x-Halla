@@ -6,12 +6,12 @@ export const Footer: React.FC = () => {
       
       {/* Silk Background Image Overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-40 pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/silk.jpg)` }}
+        className="absolute inset-0 bg-cover bg-center opacity-60 pointer-events-none"
+        style={{ backgroundImage: `url('/silk.jpg')` }}
       />
       
-      {/* Soft gradient tint to blend with your theme */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6EE]/80 via-[#F4EBDC]/70 to-[#EAE0CD]/85 pointer-events-none" />
+      {/* Soft warm gradient blend */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6EE]/70 via-[#F4EBDC]/60 to-[#EAE0CD]/80 pointer-events-none" />
 
       <div className="relative max-w-xl mx-auto flex flex-col items-center space-y-4">
         
