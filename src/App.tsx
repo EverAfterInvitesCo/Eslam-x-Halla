@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { DEFAULT_INVITATION } from './constants';
-import { InvitationData, GuestRSVP } from './types';
+import { InvitationData } from './types';
 import { HeaderBar } from './components/HeaderBar';
 import { EnvelopeSection } from './components/EnvelopeSection';
 import { QuranVerseSection } from './components/QuranVerseSection';
 import { DetailsSection } from './components/DetailsSection';
-import { AddressModal } from './components/AddressModal';
 import { PersonalizeModal } from './components/PersonalizeModal';
 import { VideoIntroScreen } from './components/VideoIntroScreen';
 
@@ -31,32 +30,14 @@ export default function App() {
   });
 
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState<boolean>(false);
-  const [isAddressModalOpen, setIsAddressModalOpen] = useState<boolean>(false);
   const [isPersonalizeModalOpen, setIsPersonalizeModalOpen] = useState<boolean>(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  const [guests, setGuests] = useState<GuestRSVP[]>(() => {
-    const saved = localStorage.getItem('pearl_ivory_guests');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch {
-        return [];
-      }
-    }
-    return [];
-  });
 
   // Save invitation data to localStorage
   useEffect(() => {
     localStorage.setItem('pearl_ivory_invitation_data', JSON.stringify(invitationData));
   }, [invitationData]);
-
-  // Save guests to localStorage
-  useEffect(() => {
-    localStorage.setItem('pearl_ivory_guests', JSON.stringify(guests));
-  }, [guests]);
 
   // Control audio playback based on musicEnabled state
   useEffect(() => {
@@ -71,20 +52,6 @@ export default function App() {
 
   const handleUpdateInvitation = (newData: Partial<InvitationData>) => {
     setInvitationData((prev) => ({ ...prev, ...newData }));
-  };
-
-  const handleSaveGuest = (newGuest: GuestRSVP) => {
-    setGuests((prev) => [newGuest, ...prev]);
-  };
-
-  const handleDeleteGuest = (id: string) => {
-    setGuests((prev) => prev.filter((g) => g.id !== id));
-  };
-
-  const handleClearGuests = () => {
-    if (window.confirm('Are you sure you want to clear all guest submissions?')) {
-      setGuests([]);
-    }
   };
 
   const handleOpenInvitation = () => {
@@ -133,23 +100,14 @@ export default function App() {
           onToggleOpen={() => setIsEnvelopeOpen(!isEnvelopeOpen)}
         />
 
-        {/* Quranic Verse Section */}
+        {/* Quranic Verse Section (Placed directly below Envelope section) */}
         <QuranVerseSection />
 
-        {/* Details, Countdown & Address Collection Section */}
+        {/* Details & Location Section */}
         <DetailsSection
           data={invitationData}
-          onOpenAddressModal={() => setIsAddressModalOpen(true)}
         />
       </main>
-
-      {/* Address Collection / RSVP Modal */}
-      <AddressModal
-        isOpen={isAddressModalOpen}
-        onClose={() => setIsAddressModalOpen(false)}
-        coupleNames={invitationData.coupleNames}
-        onSaveGuest={handleSaveGuest}
-      />
 
       {/* Personalization / Customizer Modal */}
       <PersonalizeModal
@@ -157,9 +115,9 @@ export default function App() {
         onClose={() => setIsPersonalizeModalOpen(false)}
         data={invitationData}
         onUpdateData={handleUpdateInvitation}
-        guests={guests}
-        onClearGuests={handleClearGuests}
-        onDeleteGuest={handleDeleteGuest}
+        guests={[]}
+        onClearGuests={() => {}}
+        onDeleteGuest={() => {}}
       />
     </div>
   );
