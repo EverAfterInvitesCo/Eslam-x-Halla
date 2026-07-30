@@ -9,18 +9,34 @@ interface DetailsSectionProps {
 export const DetailsSection: React.FC<DetailsSectionProps> = ({ data }) => {
   return (
     <section className="relative w-full max-w-5xl mx-auto px-4 py-16 flex flex-col items-center text-center select-none space-y-12">
-      {/* Quran Verse Section */}
-      <div className="max-w-xl mx-auto px-6 py-8 rounded-2xl bg-[#FAF6EE]/50 border border-[#E8DFC2]/60 shadow-xs space-y-3">
-        <p className="font-cormorant italic text-sm sm:text-base text-[#5A4E42] leading-relaxed">
-          &ldquo;...that you may dwell in tranquility with them, and He has put love and mercy between your (hearts): verily in that are Signs for those who reflect.&rdquo;
+      
+      {/* Quran Verse Section (Arabic + 1st English Translation) */}
+      <div className="w-full flex flex-col items-center space-y-6">
+        {/* Arabic Ayah */}
+        <p className="font-arabic text-xl sm:text-2xl md:text-3xl text-[#3D352E] leading-loose tracking-wide max-w-3xl px-4">
+          وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَwَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ
         </p>
-        <p className="font-cormorant text-xs tracking-[0.3em] uppercase text-[#8C7A66] font-medium">
-          Surah Ar-Rum — 30:21
-        </p>
+        
+        {/* Divider Ornament */}
+        <div className="flex items-center justify-center space-x-3 opacity-60">
+          <div className="h-[1px] w-12 bg-[#C5B5A1]" />
+          <span className="text-[#8C7A66] text-xs">✦</span>
+          <div className="h-[1px] w-12 bg-[#C5B5A1]" />
+        </div>
+
+        {/* English Translation */}
+        <div className="max-w-xl mx-auto px-6 space-y-2">
+          <p className="font-cormorant italic text-sm sm:text-base text-[#5A4E42] leading-relaxed">
+            &ldquo;And among His Signs is this, that He created for you mates from among yourselves, that ye may dwell in tranquility with them, and He has put love and mercy between your (hearts): verily in that are Signs for those who reflect.&rdquo;
+          </p>
+          <p className="font-cormorant text-xs tracking-[0.3em] uppercase text-[#8C7A66] font-medium">
+            Surah Ar-Rum — 30:21
+          </p>
+        </div>
       </div>
 
       {/* Section Title Header */}
-      <div className="space-y-2">
+      <div className="space-y-2 pt-6">
         <p className="font-cormorant text-xs md:text-sm tracking-[0.4em] uppercase text-[#7A7167] font-medium">
           The Location
         </p>
@@ -94,7 +110,7 @@ export const DetailsSection: React.FC<DetailsSectionProps> = ({ data }) => {
             {/* Map iframe or Interactive Preview Embed */}
             <iframe
               title="Venue Location Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.0!2d30.9!3d30.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAwJzAwLjAiTiAzMsKwNTQnMDAuMCJF!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.0!2d30.9!3d30.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAwJzAwLjAiTiAzMsKwNSAnMDAuMCJF!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg"
               className="w-full h-full border-0 grayscale contrast-125 opacity-90"
               loading="lazy"
             />
