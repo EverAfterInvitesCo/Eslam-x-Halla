@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/envelope-template/',
+    base: '/Eslam-x-Halla/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
