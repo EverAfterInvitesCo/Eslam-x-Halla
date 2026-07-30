@@ -124,12 +124,12 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                     Save the Date
                   </h2>
 
-                  <div className="relative w-full aspect-[4/3] bg-white p-1.5 rounded-sm border border-[#E2D6C4] shadow-xs overflow-hidden flex items-center justify-center">
+                  <div className="relative w-full rounded-sm border border-[#E2D6C4] shadow-xs overflow-hidden flex items-center justify-center bg-transparent">
                     <img
                       src={`${import.meta.env.BASE_URL}img2.jpg`}
                       alt="Bride Walk"
                       referrerPolicy="no-referrer"
-                      className="w-full h-full object-contain rounded-2xs transition-transform duration-700 hover:scale-105"
+                      className="w-full h-auto block rounded-2xs transition-transform duration-700 hover:scale-105"
                     />
                   </div>
                 </div>
