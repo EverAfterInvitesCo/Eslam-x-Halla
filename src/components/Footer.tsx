@@ -33,8 +33,44 @@ export const Footer: React.FC = () => {
           <div className="h-[1px] w-full bg-[#C5B5A1]" />
         </div>
 
-        {/* Copyright / Branding */}
-        <p className="font-cormorant text-xs tracking-[0.2em] uppercase text-[#8C7A66] pt-2">
+        {/* Made with love by Everafterinvites & Socials */}
+        <div className="space-y-3 pt-1">
+          <p className="font-cormorant text-xs tracking-[0.2em] uppercase text-[#7A7167]">
+            Made with love by <span className="font-semibold text-[#3D352E]">Everafterinvites</span>
+          </p>
+
+          <div className="flex items-center justify-center space-x-6 pt-1">
+            <a
+              href="https://www.instagram.com/_everafterinvites_/?hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-cormorant text-xs uppercase tracking-[0.2em] text-[#7A7167] hover:text-[#3D352E] transition-colors"
+            >
+              Instagram
+            </a>
+            <span className="text-[#C5B5A1] text-xs">•</span>
+            <a
+              href="https://www.facebook.com/profile.php?id=61591686334310"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-cormorant text-xs uppercase tracking-[0.2em] text-[#7A7167] hover:text-[#3D352E] transition-colors"
+            >
+              Facebook
+            </a>
+            <span className="text-[#C5B5A1] text-xs">•</span>
+            <a
+              href="https://www.tiktok.com/@_everafterinvites_"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-cormorant text-xs uppercase tracking-[0.2em] text-[#7A7167] hover:text-[#3D352E] transition-colors"
+            >
+              TikTok
+            </a>
+          </div>
+        </div>
+
+        {/* Copyright / Closing */}
+        <p className="font-cormorant text-[10px] tracking-[0.3em] uppercase text-[#8C7A66]/80 pt-2">
           Forever & Always
         </p>
 
