@@ -3,17 +3,17 @@
 @theme {
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-display: 'Playfair Display', Georgia, serif;
-  --font-script: 'Great Vibes', cursive;
-  --font-calligraphy: 'Pinyon Script', cursive;
+  --font-script: 'Cormorant Garamond', Georgia, serif;
+  --font-calligraphy: 'Montserrat', sans-serif;
   --font-sans: 'Montserrat', sans-serif;
 }
 
 @layer utilities {
   .font-script {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Cormorant Garamond', Georgia, serif;
   }
   .font-pinyon {
-    font-family: 'Pinyon Script', cursive;
+    font-family: 'Montserrat', sans-serif;
   }
   .font-cormorant {
     font-family: 'Cormorant Garamond', Georgia, serif;
@@ -54,4 +54,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #CFC2B0;
 }
-
