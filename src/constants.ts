@@ -9,7 +9,7 @@ export const DEFAULT_INVITATION: InvitationData = {
   coupleNames: 'Halla & Eslam',
   brideName: 'Halla',
   groomName: 'Eslam',
-  eventTitle: 'A LOVE LETTER FROM',
+  eventTitle: 'A LETTER FROM',
   weddingDate: '2027-06-21T12:30:00',
   displayDate: '19.11.2026',
   dateFormatted: 'ON Thursday, 19 Novemeber 2026',
