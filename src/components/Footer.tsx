@@ -4,13 +4,13 @@ export const Footer: React.FC = () => {
   return (
     <footer className="relative w-full py-10 px-4 border-t border-[#E3D6C3] text-center select-none overflow-hidden bg-[#FAF6EE]">
       
-      {/* Silk Background Image Overlay */}
+      {/* Silk Background Image Overlay with Vite Base URL */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-60 pointer-events-none"
-        style={{ backgroundImage: `url('/silk.jpg')` }}
+        className="absolute inset-0 bg-cover bg-center opacity-70 pointer-events-none"
+        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}silk.jpg')` }}
       />
       
-      {/* Soft warm gradient blend */}
+      {/* Soft warm gradient blend so text stays readable */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6EE]/70 via-[#F4EBDC]/60 to-[#EAE0CD]/80 pointer-events-none" />
 
       <div className="relative max-w-xl mx-auto flex flex-col items-center space-y-4">
