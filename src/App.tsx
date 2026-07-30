@@ -4,6 +4,7 @@ import { DEFAULT_INVITATION } from './constants';
 import { InvitationData, GuestRSVP } from './types';
 import { HeaderBar } from './components/HeaderBar';
 import { EnvelopeSection } from './components/EnvelopeSection';
+import { QuranVerseSection } from './components/QuranVerseSection';
 import { DetailsSection } from './components/DetailsSection';
 import { AddressModal } from './components/AddressModal';
 import { PersonalizeModal } from './components/PersonalizeModal';
@@ -131,6 +132,9 @@ export default function App() {
           isOpen={isEnvelopeOpen}
           onToggleOpen={() => setIsEnvelopeOpen(!isEnvelopeOpen)}
         />
+
+        {/* Quranic Verse Section */}
+        <QuranVerseSection />
 
         {/* Details, Countdown & Address Collection Section */}
         <DetailsSection
