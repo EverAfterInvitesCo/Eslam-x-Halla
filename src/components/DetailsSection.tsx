@@ -10,7 +10,7 @@ export const DetailsSection: React.FC<DetailsSectionProps> = ({ data }) => {
   return (
     <section className="relative w-full max-w-5xl mx-auto px-4 py-16 flex flex-col items-center text-center select-none space-y-12">
       
-      {/* Single Quran Verse Section (Arabic + English Translation) */}
+      {/* Single Clean Quran Verse Section */}
       <div className="w-full flex flex-col items-center space-y-6">
         <p className="font-arabic text-xl sm:text-2xl md:text-3xl text-[#3D352E] leading-loose tracking-wide max-w-3xl px-4">
           وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ
@@ -61,7 +61,7 @@ export const DetailsSection: React.FC<DetailsSectionProps> = ({ data }) => {
                 <p className="font-cormorant text-xs tracking-[0.2em] uppercase text-[#8C7A66] font-semibold">
                   Address
                 </p>
-                <p className="font-cormorant text-sm sm:text-base text-[#5A4E42] font-medium">
+                <p className="font-cormorant text-sm sm:text-base text-[#3D352E] font-medium">
                   Mountain Rose / One View
                 </p>
                 <p className="font-cormorant text-sm text-[#7A7167]">
