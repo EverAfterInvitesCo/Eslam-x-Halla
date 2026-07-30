@@ -21,4 +21,4 @@ export const DEFAULT_INVITATION: InvitationData = {
   silkBgPhoto: silkBgAsset,
   envelopeImage: envelopeIntroAsset,
   musicEnabled: true,
-};
+}; 
