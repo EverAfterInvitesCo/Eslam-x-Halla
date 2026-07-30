@@ -15,7 +15,7 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
 }) => {
   return (
     <section className="relative w-full max-w-4xl mx-auto px-4 pt-6 pb-12 flex flex-col items-center select-none">
-      {/* Top Title - "A LOVE LETTER FROM Clara & Elliot" */}
+      {/* Top Title - "A LETTER FROM Halla & Eslam" */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
             {/* EMERGING CARDS & PHOTOS LAYER (Rising up out of the envelope pocket) */}
             <div className="relative w-full flex flex-row items-end justify-between px-1 sm:px-6 z-10 pt-8 pb-24 sm:pb-28">
               
-              {/* LEFT CARD: Ornate Scalloped Oval Frame with Couple Photo & Calla Lilies */}
+              {/* LEFT CARD: Ornate Scalloped Oval Frame with img1.jpg */}
               <motion.div
                 initial={{ y: 80, rotate: -6, opacity: 0 }}
                 animate={{ y: 0, rotate: -3, opacity: 1 }}
@@ -88,13 +88,10 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                 {/* Calla Lily Flowers sticking out on the left edge */}
                 <div className="absolute -top-8 -left-5 sm:-left-7 w-14 sm:w-18 h-32 pointer-events-none z-30">
                   <svg viewBox="0 0 60 120" fill="none" className="w-full h-full drop-shadow-md">
-                    {/* Stem */}
                     <path d="M 30 110 Q 20 60, 15 10" stroke="#7A8B6E" strokeWidth="3" strokeLinecap="round" />
                     <path d="M 38 115 Q 32 70, 35 25" stroke="#8A9B7E" strokeWidth="2.5" strokeLinecap="round" />
-                    {/* Calla Flower 1 */}
                     <path d="M 15 10 C 5 5, 5 -5, 20 -2 C 30 -2, 28 15, 15 10 Z" fill="#FFFCF7" stroke="#E2D6C4" strokeWidth="1" />
                     <ellipse cx="17" cy="4" rx="2" ry="6" fill="#EAD49B" />
-                    {/* Calla Flower 2 */}
                     <path d="M 35 25 C 25 20, 25 10, 40 13 C 50 13, 48 30, 35 25 Z" fill="#FFFDF9" stroke="#E2D6C4" strokeWidth="1" />
                     <ellipse cx="37" cy="19" rx="1.5" ry="5" fill="#EAD49B" />
                   </svg>
@@ -102,11 +99,10 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
 
                 {/* Molded Ivory Oval Frame Container */}
                 <div className="relative bg-gradient-to-b from-[#FAF6EE] to-[#F1E7D8] p-3 rounded-[42px] border-2 border-[#E3D6C3] card-lace-shadow flex flex-col items-center">
-                  {/* Scalloped Frame Rim */}
                   <div className="w-full h-full rounded-[36px] border border-[#DDD0BC] p-2 bg-[#F6EDDF] flex flex-col items-center">
                     <div className="relative w-full aspect-[4/5] rounded-[50%] p-1.5 bg-[#FAF6EE] border border-[#D3C4B0] shadow-inner overflow-hidden">
                       <img
-                        src={`${import.meta.env.BASE_URL}test-5.jpg`}
+                        src={`${import.meta.env.BASE_URL}img1.jpg`}
                         alt="Couple Portrait"
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover rounded-[50%] transition-transform duration-700 hover:scale-105"
@@ -116,7 +112,7 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                 </div>
               </motion.div>
 
-              {/* RIGHT CARD: Save the Date Card with Bride Photo */}
+              {/* RIGHT CARD: Save the Date Card with img2.jpg */}
               <motion.div
                 initial={{ y: 80, rotate: 6, opacity: 0 }}
                 animate={{ y: 0, rotate: 3, opacity: 1 }}
@@ -124,15 +120,13 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                 className="relative w-1/2 max-w-[240px] sm:max-w-[280px] z-10"
               >
                 <div className="bg-[#FAF6EE] border border-[#E3D6C3] p-3 sm:p-4 rounded-xl card-lace-shadow flex flex-col items-center space-y-2">
-                  {/* Title: Save the Date */}
                   <h2 className="font-script text-3xl sm:text-4xl text-[#3D352E] pt-1">
                     Save the Date
                   </h2>
 
-                  {/* Polaroid Style Photo Frame */}
-                  <div className="relative w-full aspect-[4/3] bg-white p-1.5 rounded-sm border border-[#E2D6C4] shadow-xs">
+                  <div className="relative w-full aspect-[4/3] bg-white p-1.5 rounded-sm border border-[#E2D6C4] shadow-xs overflow-hidden">
                     <img
-                      src={`${import.meta.env.BASE_URL}test-1.jpg`}
+                      src={`${import.meta.env.BASE_URL}img2.jpg`}
                       alt="Bride Walk"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover rounded-2xs transition-transform duration-700 hover:scale-105"
@@ -142,9 +136,8 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
               </motion.div>
             </div>
 
-            {/* FRONT ENVELOPE POCKET COVER (OVERLAPS CARDS AT BOTTOM TO CREATE TUCKED IN EFFECT) */}
+            {/* FRONT ENVELOPE POCKET COVER */}
             <div className="absolute bottom-0 inset-x-0 h-48 sm:h-56 z-30 pointer-events-none">
-              {/* Deep V-Cut Envelope Pocket SVG */}
               <svg className="w-full h-full" viewBox="0 0 600 220" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="pocketGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -156,7 +149,6 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                   </filter>
                 </defs>
 
-                {/* V-Cut Pocket shape */}
                 <path
                   d="M 0,220 L 0,40 L 260,120 Q 300,135 340,120 L 600,40 L 600,220 Z"
                   fill="url(#pocketGrad)"
@@ -166,7 +158,7 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                 />
               </svg>
 
-              {/* CENTER HEART LACE DATE BADGE (Sits right on top of the V-cut pocket notch) */}
+              {/* CENTER HEART LACE DATE BADGE */}
               <div className="absolute top-12 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-auto">
                 <div className="relative bg-[#FAF6EE] px-6 sm:px-8 py-2.5 rounded-full border-2 border-[#E3D6C3] card-lace-shadow flex items-center justify-center space-x-2">
                   <span className="text-xs text-[#A8937D]">❦</span>
@@ -188,10 +180,9 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                 </div>
               </div>
 
-              {/* DRAPED PEARL STRAND (Hanging down right side of envelope pocket) */}
+              {/* DRAPED PEARL STRAND */}
               <div className="absolute top-4 right-2 sm:right-6 w-28 sm:w-36 h-44 pointer-events-none z-40">
                 <svg className="w-full h-full" viewBox="0 0 120 180">
-                  {/* Double pearl strand loop */}
                   <path
                     d="M 100 -10 Q 110 90, 50 145 T 20 180"
                     stroke="#D5C4B0"
@@ -204,8 +195,6 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
                     strokeWidth="1"
                     fill="none"
                   />
-
-                  {/* Pearl beads along main loop */}
                   {[
                     { cx: 102, cy: 15, r: 4 },
                     { cx: 105, cy: 35, r: 4.5 },
