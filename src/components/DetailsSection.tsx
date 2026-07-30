@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { InvitationData } from '../types';
 
 interface DetailsSectionProps {
@@ -7,9 +7,91 @@ interface DetailsSectionProps {
 }
 
 export const DetailsSection: React.FC<DetailsSectionProps> = ({ data }) => {
+  // Target date: November 19, 2026 at 19:00 (7:00 PM)
+  const targetDate = new Date('2026-11-19T19:00:00');
+
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const difference = targetDate.getTime() - new Date().getTime();
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        });
+      }
+    };
+
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="relative w-full max-w-5xl mx-auto px-4 py-16 flex flex-col items-center text-center select-none space-y-12">
       
+      {/* Countdown Section */}
+      <div className="w-full max-w-2xl bg-[#FAF6EE] border border-[#E3D6C3] p-8 rounded-2xl card-lace-shadow space-y-6">
+        <div className="space-y-2">
+          <p className="font-cormorant text-xs md:text-sm tracking-[0.4em] uppercase text-[#7A7167] font-medium">
+            Counting Down To The Big Day
+          </p>
+          <h3 className="font-script text-3xl sm:text-4xl text-[#3D352E]">
+            Our Wedding Celebration
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-4 gap-3 sm:gap-6 pt-2">
+          <div className="flex flex-col items-center bg-[#F4EBDC]/60 border border-[#E3D6C3]/60 py-4 px-2 rounded-xl">
+            <span className="font-cormorant text-2xl sm:text-4xl font-bold text-[#3D352E]">
+              {String(timeLeft.days).padStart(2, '0')}
+            </span>
+            <span className="font-cormorant text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#7A7167] mt-1">
+              Days
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center bg-[#F4EBDC]/60 border border-[#E3D6C3]/60 py-4 px-2 rounded-xl">
+            <span className="font-cormorant text-2xl sm:text-4xl font-bold text-[#3D352E]">
+              {String(timeLeft.hours).padStart(2, '0')}
+            </span>
+            <span className="font-cormorant text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#7A7167] mt-1">
+              Hours
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center bg-[#F4EBDC]/60 border border-[#E3D6C3]/60 py-4 px-2 rounded-xl">
+            <span className="font-cormorant text-2xl sm:text-4xl font-bold text-[#3D352E]">
+              {String(timeLeft.minutes).padStart(2, '0')}
+            </span>
+            <span className="font-cormorant text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#7A7167] mt-1">
+              Minutes
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center bg-[#F4EBDC]/60 border border-[#E3D6C3]/60 py-4 px-2 rounded-xl">
+            <span className="font-cormorant text-2xl sm:text-4xl font-bold text-[#3D352E]">
+              {String(timeLeft.seconds).padStart(2, '0')}
+            </span>
+            <span className="font-cormorant text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#7A7167] mt-1">
+              Seconds
+            </span>
+          </div>
+        </div>
+
+        <p className="font-cormorant italic text-sm text-[#7A7167] pt-1">
+          Thursday, November 19, 2026 at 7:00 PM
+        </p>
+      </div>
+
       {/* Section Title Header */}
       <div className="space-y-2 pt-6">
         <p className="font-cormorant text-xs md:text-sm tracking-[0.4em] uppercase text-[#7A7167] font-medium">
