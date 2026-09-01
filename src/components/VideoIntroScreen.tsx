@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { InvitationData } from '../types';
 
@@ -12,94 +12,95 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
   onOpenInvitation,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const audioRef = useRef<HTMLAudioElement>(null); // Added Audio Ref
+  const [hasStarted, setHasStarted] = useState<boolean>(false);
+  const [showTapToEnter, setShowTapToEnter] = useState<boolean>(true);
 
-  const togglePlay = (e: React.MouseEvent) => {
+  // Start audio and video simultaneously when triggered
+  const handleStartExperience = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
+    if (videoRef.current && audioRef.current) {
+      videoRef.current.play().catch(error => console.error("Video play failed", error));
+      audioRef.current.play().catch(error => console.error("Audio play failed", error));
+      setHasStarted(true);
+      setShowTapToEnter(false);
     }
   };
+
+  // Sync audio volume with video playback state
+  useEffect(() => {
+    if (audioRef.current) {
+      if (!hasStarted) {
+        audioRef.current.volume = 0;
+      } else {
+        // Fade in volume over 0.5 seconds for a smoother start
+        const fadeInInterval = setInterval(() => {
+          if (audioRef.current && audioRef.current.volume < 1) {
+            audioRef.current.volume = Math.min(1, audioRef.current.volume + 0.1);
+          } else {
+            clearInterval(fadeInInterval);
+          }
+        }, 50);
+      }
+    }
+  }, [hasStarted]);
 
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }}
+      exit={{ opacity: 0, transition: { duration: 1.5, ease: [0.16, 1, 0.3, 1] } }}
       className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-black text-white select-none overflow-hidden cursor-pointer"
-      onClick={onOpenInvitation}
     >
-      {/* Full Frame Video filling the entire viewport */}
+      {/* Full Frame Video & Thumbnail Container */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
+        {/* Static Thumbnail - Hidden after play starts */}
+        <motion.img
+          src={`${import.meta.env.BASE_URL}envelope(1).png`}
+          alt="Invitation Thumbnail"
+          className={`absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-500 ${hasStarted ? 'opacity-0' : 'opacity-100'}`}
+        />
+        
+        {/* The actual video element - Plays on tap */}
         <video
           ref={videoRef}
           src={`${import.meta.env.BASE_URL}Envelope.mp4`}
-          autoPlay
-          loop
-          muted
+          loop // Set to true since original was looping, but it will only play AFTER tap
+          muted={false} // Unmuted
           playsInline
-          onError={(e) => {
-            const target = e.currentTarget;
-            if (!target.dataset.triedDecorative) {
-              target.dataset.triedDecorative = 'true';
-              target.src = `${import.meta.env.BASE_URL}Decorative_panel_rotating_upward_202607291613.mp4`;
-            }
-          }}
-          className="w-full h-full object-cover opacity-95"
+          className="w-full h-full object-cover z-0"
         />
-        {/* Soft Vignette Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+        
+        {/* Subtle Vignette Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none z-[1]" />
       </div>
 
-      {/* Top Banner overlay */}
+      {/* Background Audio Element - Loaded silently */}
+      <audio
+        ref={audioRef}
+        src={`${import.meta.env.BASE_URL}El-leila.mp3`}
+        preload="auto"
+        loop
+        onCanPlayThrough={() => {
+           console.log("Audio loaded and ready to play.");
+        }}
+      />
+
+      {/* Single "Tap to Enter" Call-to-Action overlay */}
       <motion.div
-        initial={{ y: -30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.8 }}
-        className="relative z-10 text-center pt-10 sm:pt-14 px-4 space-y-1"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showTapToEnter ? 1 : 0 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+        onClick={handleStartExperience}
+        className="absolute inset-0 z-30 flex items-center justify-center bg-black/20"
       >
-        <p className="font-cormorant text-xs sm:text-sm tracking-[0.4em] uppercase text-[#E8DEC3] font-semibold drop-shadow-md">
-          {data.eventTitle}
+        <p className="font-cormorant text-lg sm:text-xl tracking-[0.5em] uppercase text-white font-semibold drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)] p-4 rounded-lg">
+          Tap to Enter
         </p>
-        <h1 className="font-script text-4xl sm:text-6xl md:text-7xl text-white font-normal tracking-wide drop-shadow-lg">
-          {data.coupleNames}
-        </h1>
       </motion.div>
-
-      {/* Play/Pause Control in top right */}
-      <button
-        onClick={togglePlay}
-        className="absolute top-4 right-4 z-20 bg-black/40 backdrop-blur-md border border-white/20 text-white px-3 py-1 rounded-full text-[10px] font-cormorant tracking-widest uppercase hover:bg-black/60 transition-all cursor-pointer"
-      >
-        {isPlaying ? 'Pause' : 'Play'}
-      </button>
-
-      {/* Bottom Center Wax Seal Medallion (Without the Open Button) */}
-      <motion.div
-        initial={{ y: 30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.8 }}
-        className="relative z-10 pb-12 sm:pb-16 flex flex-col items-center space-y-4 px-4 pointer-events-none"
-      >
-        <div className="flex flex-col items-center space-y-3">
-          {/* Embossed Wax Seal Medallion */}
-          <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-[#EFE3D3] via-[#DDD0BD] to-[#C4B29A] wax-seal-shadow flex items-center justify-center border-2 border-[#FAF3E8] p-1.5 transition-transform duration-300">
-            <div className="w-full h-full rounded-full border border-[#FAF0E4]/80 flex flex-col items-center justify-center text-center p-2 bg-[#E5D5C2]/60 backdrop-blur-xs">
-              <span className="font-pinyon text-3xl sm:text-4xl text-[#4A3E33] font-normal leading-none mb-0.5">
-                {data.brideName[0]}&{data.groomName[0]}
-              </span>
-              <span className="font-cormorant text-[9px] sm:text-[10px] tracking-[0.25em] text-[#5C4F42] font-semibold uppercase">
-                {data.displayDate}
-              </span>
-            </div>
-            <span className="absolute inset-0 rounded-full border border-[#FAF3E8] animate-ping opacity-30" />
-          </div>
-        </div>
-      </motion.div>
+      
+      {/* Empty placeholders to maintain flex layout structure */}
+      <div className="relative z-10" />
+      <div className="relative z-10" />
     </motion.div>
   );
-}; 
+};
