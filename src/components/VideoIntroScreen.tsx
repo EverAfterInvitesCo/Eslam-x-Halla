@@ -19,15 +19,13 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
     if (videoRef.current && !isPlayingVideo) {
       setIsPlayingVideo(true);
       
+      // Trigger global audio and site open simultaneously on tap
+      onOpenInvitation();
+      
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(error => {
         console.error("Video play failed:", error);
       });
-
-      // Wait for the envelope opening animation to play (e.g., 1.5 seconds) before entering the site
-      setTimeout(() => {
-        onOpenInvitation();
-      }, 1500);
     }
   };
 
@@ -46,7 +44,7 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
           className={`absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-300 ${isPlayingVideo ? 'opacity-0' : 'opacity-100'}`}
         />
         
-        {/* The video element - Kept in the DOM and visible when playing */}
+        {/* The video element */}
         <video
           ref={videoRef}
           src={`${import.meta.env.BASE_URL}Envelope.mp4`}
@@ -59,7 +57,7 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/25 pointer-events-none z-[15]" />
       </div>
 
-      {/* "Tap to Enter" text */}
+      {/* "Tap to Enter" text with no box */}
       {!isPlayingVideo && (
         <motion.div
           initial={{ opacity: 0 }}
