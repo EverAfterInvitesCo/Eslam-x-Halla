@@ -22,7 +22,6 @@ export default function App() {
         if (parsed.bridePhoto && parsed.bridePhoto.includes('wedding_bride_portrait')) {
           parsed.bridePhoto = DEFAULT_INVITATION.bridePhoto;
         }
-        // Ensure musicEnabled defaults to false on initial load so it doesn't play automatically
         return { ...DEFAULT_INVITATION, ...parsed, musicEnabled: false };
       } catch {
         return { ...DEFAULT_INVITATION, musicEnabled: false };
@@ -36,7 +35,7 @@ export default function App() {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Save invitation data to localStorage (excluding temporary UI triggers if needed)
+  // Save invitation data to localStorage
   useEffect(() => {
     localStorage.setItem('eslam_halla_invitation_data', JSON.stringify(invitationData));
   }, [invitationData]);
@@ -58,15 +57,19 @@ export default function App() {
     setInvitationData((prev) => ({ ...prev, ...newData }));
   };
 
-  const handleOpenInvitation = () => {
-    setIsEnvelopeOpen(true);
-    // Explicitly turn on music only when the video intro finishes/opens
+  // Called instantly on tap to start music alongside the video
+  const handleStartAudio = () => {
     setInvitationData((prev) => ({ ...prev, musicEnabled: true }));
     if (audioRef.current) {
       audioRef.current.play().catch((err) => {
-        console.log("Audio play on open failed:", err);
+        console.log("Audio play on tap failed:", err);
       });
     }
+  };
+
+  // Called when video finishes to reveal the rest of the site
+  const handleOpenInvitation = () => {
+    setIsEnvelopeOpen(true);
   };
 
   return (
@@ -104,6 +107,7 @@ export default function App() {
           <VideoIntroScreen
             data={invitationData}
             onOpenInvitation={handleOpenInvitation}
+            onStartAudio={handleStartAudio}
           />
         )}
       </AnimatePresence>

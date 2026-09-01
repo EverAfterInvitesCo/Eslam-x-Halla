@@ -5,11 +5,13 @@ import { InvitationData } from '../types';
 interface VideoIntroScreenProps {
   data: InvitationData;
   onOpenInvitation: () => void;
+  onStartAudio: () => void; // Added callback to start audio on tap
 }
 
 export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
   data,
   onOpenInvitation,
+  onStartAudio,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlayingVideo, setIsPlayingVideo] = useState<boolean>(false);
@@ -19,7 +21,10 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
     if (videoRef.current && !isPlayingVideo) {
       setIsPlayingVideo(true);
       
-      // Play the video on screen first
+      // Start the music instantly on the very first tap
+      onStartAudio();
+      
+      // Play the video on screen
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(error => {
         console.error("Video play failed:", error);
@@ -29,7 +34,7 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
   };
 
   const handleVideoEnded = () => {
-    // Trigger audio and enter the site AFTER the video finishes playing
+    // Enter the site once the video finishes playing
     onOpenInvitation();
   };
 
@@ -62,23 +67,22 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/25 pointer-events-none z-[15]" />
       </div>
 
-      {/* "Tap to Enter" text with no box */}
+      <div className="relative z-10" />
+
+      {/* "Tap to Enter" text positioned at the bottom */}
       {!isPlayingVideo && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleStartExperience}
-          className="absolute inset-0 z-30 flex items-center justify-center cursor-pointer"
+          className="absolute inset-x-0 bottom-12 z-30 flex items-center justify-center cursor-pointer pb-6"
         >
           <p className="font-cormorant text-sm sm:text-base tracking-[0.4em] uppercase text-white/90 font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:text-white transition-colors">
             Tap to Enter
           </p>
         </motion.div>
       )}
-      
-      <div className="relative z-10" />
-      <div className="relative z-10" />
     </motion.div>
   );
-}; 
+};
