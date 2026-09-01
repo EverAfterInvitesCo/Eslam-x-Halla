@@ -19,14 +19,19 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
     if (videoRef.current && !isPlayingVideo) {
       setIsPlayingVideo(true);
       
-      // Trigger global audio track instantly on tap
-      onOpenInvitation();
-      
+      // 1. Play the video on screen first
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(error => {
         console.error("Video play failed:", error);
+        // Fallback if browser blocks video: enter site immediately
+        onOpenInvitation();
       });
     }
+  };
+
+  const handleVideoEnded = () => {
+    // 2. Only trigger audio and enter the site AFTER the video finishes playing completely
+    onOpenInvitation();
   };
 
   return (
@@ -44,13 +49,13 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
           className={`absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-300 ${isPlayingVideo ? 'opacity-0' : 'opacity-100'}`}
         />
         
-        {/* The video element - stays visible on screen when played and triggers site entry once finished */}
+        {/* The video element - stays visible and plays until onEnded fires */}
         <video
           ref={videoRef}
           src={`${import.meta.env.BASE_URL}Envelope.mp4`}
           muted
           playsInline
-          onEnded={onOpenInvitation}
+          onEnded={handleVideoEnded}
           className="absolute inset-0 w-full h-full object-cover z-10"
         />
         
@@ -77,4 +82,4 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
       <div className="relative z-10" />
     </motion.div>
   );
-}; 
+};

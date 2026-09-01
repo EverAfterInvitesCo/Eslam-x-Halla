@@ -59,7 +59,7 @@ export default function App() {
 
   const handleOpenInvitation = () => {
     setIsEnvelopeOpen(true);
-    // Turn on music state and trigger single source audio play on tap
+    // Turn on music state and trigger audio play only after the tap & video finish
     setInvitationData((prev) => ({ ...prev, musicEnabled: true }));
     if (audioRef.current) {
       audioRef.current.play().catch((err) => {
@@ -140,4 +140,4 @@ export default function App() {
       />
     </div>
   );
-} 
+}
