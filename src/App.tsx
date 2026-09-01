@@ -40,11 +40,14 @@ export default function App() {
     localStorage.setItem('eslam_halla_invitation_data', JSON.stringify(invitationData));
   }, [invitationData]);
 
-  // Control audio playback based on musicEnabled state
+  // Control audio playback and volume fading based on musicEnabled state
   useEffect(() => {
     if (audioRef.current) {
       if (invitationData.musicEnabled) {
-        audioRef.current.play().catch(() => {});
+        audioRef.current.volume = 1.0;
+        audioRef.current.play().catch((err) => {
+          console.log("Audio autoplay blocked or waiting for user interaction:", err);
+        });
       } else {
         audioRef.current.pause();
       }
@@ -57,8 +60,15 @@ export default function App() {
 
   const handleOpenInvitation = () => {
     setIsEnvelopeOpen(true);
-    // Automatically turn on music when the user clicks the intro screen/seal
+    // Explicitly turn on music and force-play the audio element on tap gesture
     setInvitationData((prev) => ({ ...prev, musicEnabled: true }));
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.volume = 1.0;
+      audioRef.current.play().catch((err) => {
+        console.log("Audio play on open failed:", err);
+      });
+    }
   };
 
   return (
@@ -67,6 +77,7 @@ export default function App() {
       <audio
         ref={audioRef}
         src={`${import.meta.env.BASE_URL}El-leila.mp3`}
+        preload="auto"
         loop
       />
 
@@ -79,7 +90,13 @@ export default function App() {
         onToggleMusic={() =>
           setInvitationData((prev) => ({ ...prev, musicEnabled: !prev.musicEnabled }))
         }
-        onReplayVideo={() => setIsEnvelopeOpen(false)}
+        onReplayVideo={() => {
+          setIsEnvelopeOpen(false);
+          setInvitationData((prev) => ({ ...prev, musicEnabled: false }));
+          if (audioRef.current) {
+            audioRef.current.pause();
+          }
+        }}
       />
 
       {/* Video Intro Overlay Screen (Fade Out transition to scroll site) */}
