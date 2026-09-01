@@ -139,4 +139,5 @@ export default function App() {
         onDeleteGuest={() => {}}
       />
     </div>
-  ); 
+  );
+}
