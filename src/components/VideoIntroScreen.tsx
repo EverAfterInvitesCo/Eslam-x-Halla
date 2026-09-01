@@ -77,4 +77,4 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
       <div className="relative z-10" />
     </motion.div>
   );
-};
+}; 
