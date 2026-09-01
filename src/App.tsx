@@ -40,13 +40,12 @@ export default function App() {
     localStorage.setItem('eslam_halla_invitation_data', JSON.stringify(invitationData));
   }, [invitationData]);
 
-  // Control audio playback and volume fading based on musicEnabled state
+  // Control audio playback based on musicEnabled state
   useEffect(() => {
     if (audioRef.current) {
       if (invitationData.musicEnabled) {
-        audioRef.current.volume = 1.0;
         audioRef.current.play().catch((err) => {
-          console.log("Audio autoplay blocked or waiting for user interaction:", err);
+          console.log("Audio play deferred:", err);
         });
       } else {
         audioRef.current.pause();
@@ -60,11 +59,9 @@ export default function App() {
 
   const handleOpenInvitation = () => {
     setIsEnvelopeOpen(true);
-    // Explicitly turn on music and force-play the audio element on tap gesture
+    // Turn on music state and trigger single source audio play on tap
     setInvitationData((prev) => ({ ...prev, musicEnabled: true }));
     if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.volume = 1.0;
       audioRef.current.play().catch((err) => {
         console.log("Audio play on open failed:", err);
       });
@@ -73,7 +70,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C2A29] font-sans antialiased relative overflow-x-hidden pt-12 pb-0 selection:bg-[#E2D4C3]">
-      {/* Global Background Audio Element */}
+      {/* Global Background Audio Element - Single source track for the entire app */}
       <audio
         ref={audioRef}
         src={`${import.meta.env.BASE_URL}El-leila.mp3`}
@@ -95,11 +92,12 @@ export default function App() {
           setInvitationData((prev) => ({ ...prev, musicEnabled: false }));
           if (audioRef.current) {
             audioRef.current.pause();
+            audioRef.current.currentTime = 0;
           }
         }}
       />
 
-      {/* Video Intro Overlay Screen (Fade Out transition to scroll site) */}
+      {/* Video Intro Overlay Screen */}
       <AnimatePresence>
         {!isEnvelopeOpen && (
           <VideoIntroScreen
@@ -118,7 +116,7 @@ export default function App() {
           onToggleOpen={() => setIsEnvelopeOpen(!isEnvelopeOpen)}
         />
 
-        {/* Quranic Verse Section (Placed directly below Envelope section) */}
+        {/* Quranic Verse Section */}
         <QuranVerseSection />
 
         {/* Details & Location Section */}
