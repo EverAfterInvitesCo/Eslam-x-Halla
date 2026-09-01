@@ -19,7 +19,7 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
     if (videoRef.current && !isPlayingVideo) {
       setIsPlayingVideo(true);
       
-      // Trigger global audio and site open simultaneously on tap
+      // Trigger global audio track instantly on tap
       onOpenInvitation();
       
       videoRef.current.currentTime = 0;
@@ -44,12 +44,13 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
           className={`absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-300 ${isPlayingVideo ? 'opacity-0' : 'opacity-100'}`}
         />
         
-        {/* The video element */}
+        {/* The video element - stays visible on screen when played and triggers site entry once finished */}
         <video
           ref={videoRef}
           src={`${import.meta.env.BASE_URL}Envelope.mp4`}
           muted
           playsInline
+          onEnded={onOpenInvitation}
           className="absolute inset-0 w-full h-full object-cover z-10"
         />
         
