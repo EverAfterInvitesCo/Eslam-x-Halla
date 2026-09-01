@@ -18,18 +18,17 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
     e.stopPropagation();
     if (videoRef.current && !isPlayingVideo) {
       setIsPlayingVideo(true);
-      // Trigger the global site open & audio play simultaneously
-      onOpenInvitation();
       
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(error => {
         console.error("Video play failed:", error);
       });
-    }
-  };
 
-  const handleVideoEnded = () => {
-    // Optional fallback if needed, but opening on tap works best
+      // Wait for the envelope opening animation to play (e.g., 1.5 seconds) before entering the site
+      setTimeout(() => {
+        onOpenInvitation();
+      }, 1500);
+    }
   };
 
   return (
@@ -40,41 +39,38 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
     >
       {/* Full Frame Video & Thumbnail Container */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        {/* Static Thumbnail - Hidden once video starts playing */}
+        {/* Static Thumbnail */}
         <motion.img
           src={`${import.meta.env.BASE_URL}envelope-cover.png`}
           alt="Invitation Thumbnail"
-          className={`absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-500 ${isPlayingVideo ? 'opacity-0' : 'opacity-100'}`}
+          className={`absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-300 ${isPlayingVideo ? 'opacity-0' : 'opacity-100'}`}
         />
         
-        {/* The video element - Muted so only the background music track plays */}
+        {/* The video element - Kept in the DOM and visible when playing */}
         <video
           ref={videoRef}
           src={`${import.meta.env.BASE_URL}Envelope.mp4`}
           muted
           playsInline
-          onEnded={handleVideoEnded}
-          className="w-full h-full object-cover z-0"
+          className="absolute inset-0 w-full h-full object-cover z-10"
         />
         
         {/* Subtle Vignette Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/25 pointer-events-none z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/25 pointer-events-none z-[15]" />
       </div>
 
-      {/* "Tap to Enter" overlay button */}
+      {/* "Tap to Enter" text */}
       {!isPlayingVideo && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleStartExperience}
-          className="absolute inset-0 z-30 flex items-center justify-center bg-black/10 cursor-pointer"
+          className="absolute inset-0 z-30 flex items-center justify-center cursor-pointer"
         >
-          <div className="bg-black/30 backdrop-blur-xs px-8 py-4 rounded-xl border border-white/15 shadow-2xl">
-            <p className="font-cormorant text-lg sm:text-xl tracking-[0.5em] uppercase text-white font-semibold drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
-              Tap to Enter
-            </p>
-          </div>
+          <p className="font-cormorant text-sm sm:text-base tracking-[0.4em] uppercase text-white/90 font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:text-white transition-colors">
+            Tap to Enter
+          </p>
         </motion.div>
       )}
       
