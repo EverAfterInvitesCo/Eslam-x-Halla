@@ -19,18 +19,17 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
     if (videoRef.current && !isPlayingVideo) {
       setIsPlayingVideo(true);
       
-      // 1. Play the video on screen first
+      // Play the video on screen first
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(error => {
         console.error("Video play failed:", error);
-        // Fallback if browser blocks video: enter site immediately
         onOpenInvitation();
       });
     }
   };
 
   const handleVideoEnded = () => {
-    // 2. Only trigger audio and enter the site AFTER the video finishes playing completely
+    // Trigger audio and enter the site AFTER the video finishes playing
     onOpenInvitation();
   };
 
@@ -49,7 +48,7 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
           className={`absolute inset-0 w-full h-full object-cover z-[5] transition-opacity duration-300 ${isPlayingVideo ? 'opacity-0' : 'opacity-100'}`}
         />
         
-        {/* The video element - stays visible and plays until onEnded fires */}
+        {/* The video element */}
         <video
           ref={videoRef}
           src={`${import.meta.env.BASE_URL}Envelope.mp4`}
@@ -82,4 +81,4 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
       <div className="relative z-10" />
     </motion.div>
   );
-};
+}; 

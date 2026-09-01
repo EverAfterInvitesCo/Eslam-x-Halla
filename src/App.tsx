@@ -22,12 +22,13 @@ export default function App() {
         if (parsed.bridePhoto && parsed.bridePhoto.includes('wedding_bride_portrait')) {
           parsed.bridePhoto = DEFAULT_INVITATION.bridePhoto;
         }
-        return { ...DEFAULT_INVITATION, ...parsed };
+        // Ensure musicEnabled defaults to false on initial load so it doesn't play automatically
+        return { ...DEFAULT_INVITATION, ...parsed, musicEnabled: false };
       } catch {
-        return DEFAULT_INVITATION;
+        return { ...DEFAULT_INVITATION, musicEnabled: false };
       }
     }
-    return DEFAULT_INVITATION;
+    return { ...DEFAULT_INVITATION, musicEnabled: false };
   });
 
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState<boolean>(false);
@@ -35,12 +36,12 @@ export default function App() {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Save invitation data to localStorage
+  // Save invitation data to localStorage (excluding temporary UI triggers if needed)
   useEffect(() => {
     localStorage.setItem('eslam_halla_invitation_data', JSON.stringify(invitationData));
   }, [invitationData]);
 
-  // Control audio playback based on musicEnabled state
+  // Control audio playback strictly based on musicEnabled state
   useEffect(() => {
     if (audioRef.current) {
       if (invitationData.musicEnabled) {
@@ -59,7 +60,7 @@ export default function App() {
 
   const handleOpenInvitation = () => {
     setIsEnvelopeOpen(true);
-    // Turn on music state and trigger audio play only after the tap & video finish
+    // Explicitly turn on music only when the video intro finishes/opens
     setInvitationData((prev) => ({ ...prev, musicEnabled: true }));
     if (audioRef.current) {
       audioRef.current.play().catch((err) => {
@@ -70,7 +71,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C2A29] font-sans antialiased relative overflow-x-hidden pt-12 pb-0 selection:bg-[#E2D4C3]">
-      {/* Global Background Audio Element - Single source track for the entire app */}
+      {/* Global Background Audio Element */}
       <audio
         ref={audioRef}
         src={`${import.meta.env.BASE_URL}El-leila.mp3`}
