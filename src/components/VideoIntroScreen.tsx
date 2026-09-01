@@ -102,4 +102,4 @@ export const VideoIntroScreen: React.FC<VideoIntroScreenProps> = ({
       </motion.div>
     </motion.div>
   );
-};
+}; 
